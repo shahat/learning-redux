@@ -4,13 +4,45 @@
       - 2.0 : 
 
 /*-------------------------------------------      
- => steps to work with reducer 
+ => steps to work with redux 
     
 // => step 1 : => making action creator function
 // => step 2 : => making a state
 // => step 3 : => making reducer
 // => step 4 : => making a store
-           4.1 =>  add subscibe to the state
+           4.1 =>  add subscibe to the state to listen the state changes 
            4.2 =>  then making dispatch
            4.3 =>  then unsubscribe 
+
+/*-------------------------------------------      
+ => steps to work with redux with multi reducer 
+     
+// => step 1 : => making malti action creator function
+// => step 2 : => split the state
+// => step 3 : => split reducer
+// => step 4 : => making a store that accept malti reducer
+           4.1 =>  add subscibe to the state to listen the state changes 
+           4.2 =>  then making dispatch
+           4.3 =>  then unsubscribe  
+
+/*-------------------------------------------      
+
+working with redux middleware 
+  // => step 1 : => import reduxLogger
+     const reduxLogger = require("redux-logger");
+  // => step 2 : => apply the middleware
+    const applyMiddleware = redux.applyMiddleware;
+    const logger = reduxLogger.createLogger(); 
+
+  // => step 3 : => add the logger to the createStore 
+     const store = createStore(rootReducer, applyMiddleware(logger));
+
+
+
+
+
+
+  
+
+
 

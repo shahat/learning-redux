@@ -1,8 +1,8 @@
 const redux = require("redux");
 const createStore = redux.createStore;
-
+const combineReducers = redux.combineReducers;
 const BUY_CAKE = "BUY_CAKE"; // assign the action type into a variable to avoid miss spelling
-
+const BUY_ICECREAM = "BUY_ICECREAM";
 // -----------------------------------------------------------
 // =>  step 1 : making action creator function
 
@@ -12,23 +12,29 @@ function buyCake() {
     info: "First Redux action ",
   };
 }
+
+function buyIceCream() {
+  return {
+    type: BUY_ICECREAM,
+    info: "First Redux action ",
+  };
+}
 // -----------------------------------------------------------
 //step 2 =>  making a state
 
-const initialState = {
+const initialCakeState = {
   numberOfCakes: 10,
+};
+const initialIceCreamState = {
+  numberOfIceCream: 20,
 };
 
 // -----------------------------------------------------------
 // => step 3  =>  making reducer
 
-const reducer = (state = initialState, action) => {
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case BUY_CAKE:
-      // retuen the new state
-      // note that in reality you state contains many prop so you should make a copy of your state then change only the prop that need to change
-      // the ...state make the reducer change only the numberOfCakes
-
       return {
         ...state,
         numberOfCakes: state.numberOfCakes - 1,
@@ -38,9 +44,27 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  switch (action.type) {
+    case BUY_ICECREAM:
+      return {
+        ...state,
+        numberOfIceCream: state.numberOfIceCream - 1,
+      };
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer,
+});
+
 // -----------------------------------------------------------
 // => step 4  => making a store
-const store = createStore(reducer);
+
+const store = createStore(rootReducer);
 
 // print the initial state
 // console.log("initial state ", store.getState());
@@ -50,15 +74,13 @@ const store = createStore(reducer);
            2 =>  then making dispatch
            3 =>  then unsubscribe 
 */
-const listener = () => console.log("upload state ", store.getState());
+const listener = () => console.log("update state ", store.getState());
 const unsub = store.subscribe(listener);
 // making an action
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
+store.dispatch(buyIceCream());
+store.dispatch(buyIceCream());
 
 unsub();
-// if u make action after this it is not gonna work
-/*note that that you can pass an object to the dispatch method 
- but in every time u need to write an object so to have a function that return the the action will be better choise  
- */

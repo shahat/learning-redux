@@ -1,0 +1,16 @@
+ Reduc 
+   - table of content 
+      - 1.0 : three main consipts in redux 
+      - 2.0 : 
+
+/*-------------------------------------------      
+ => steps to work with reducer 
+    
+// => step 1 : => making action creator function
+// => step 2 : => making a state
+// => step 3 : => making reducer
+// => step 4 : => making a store
+           4.1 =>  add subscibe to the state
+           4.2 =>  then making dispatch
+           4.3 =>  then unsubscribe 
+

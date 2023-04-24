@@ -1,6 +1,11 @@
 const redux = require("redux");
+const reduxLogger = require("redux-logger");
+
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+const logger = reduxLogger.createLogger();
+
 const BUY_CAKE = "BUY_CAKE"; // assign the action type into a variable to avoid miss spelling
 const BUY_ICECREAM = "BUY_ICECREAM";
 // -----------------------------------------------------------
@@ -16,7 +21,7 @@ function buyCake() {
 function buyIceCream() {
   return {
     type: BUY_ICECREAM,
-    info: "First Redux action ",
+    //info: "First Redux action ",
   };
 }
 // -----------------------------------------------------------
@@ -64,7 +69,7 @@ const rootReducer = combineReducers({
 // -----------------------------------------------------------
 // => step 4  => making a store
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // print the initial state
 // console.log("initial state ", store.getState());
@@ -75,7 +80,7 @@ const store = createStore(rootReducer);
            3 =>  then unsubscribe 
 */
 const listener = () => console.log("update state ", store.getState());
-const unsub = store.subscribe(listener);
+const unsub = store.subscribe(() => {});
 // making an action
 store.dispatch(buyCake());
 store.dispatch(buyCake());
